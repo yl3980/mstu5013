@@ -8,7 +8,7 @@
 
 				<!-- INTRO -->
 				<div show={ menuState === "intro"} class="text-center">
-					<p><strong>{ yearsSince } years</strong> since the end of fascism. Maybe.</p>
+					<p style = "background-color:{randomColor}"><strong>{ yearsSince } years</strong> since the end of fascism. Maybe.</p>
 					<button class="btn btn-light" onclick={ startNewGame }>New Game</button>
 				</div>
 
@@ -68,7 +68,7 @@
 						<div class="card-body">
 
 							<div class="form-group" each={ user, i in players }>
-								<input class="form-control" placeholder="Player {i+1} Name" oninput={ parent.setName }>
+								<input class="form-control" placeholder={ myPlacehoder } oninput={ parent.setName }>
 							</div>
 							<p class="text-right">
 								<span class="float-left">{ playersReady ? "Ready" : "Waiting..."}</span>
@@ -105,6 +105,7 @@
   <script>
     // JAVASCRIPT
 		let tag = this;
+		console.log(this);
 
 		const endWWII = new Date('September 02, 1945');
 		const today = new Date();
@@ -119,7 +120,8 @@
 		this.playerTypes = { liberal: 0, fascist: 0, hitler: 0 };
 		this.playersReady = false;
 		this.readyCount = 0;
-
+		this.myPlacehoder = "USERNAME, write your message here.";
+		this.randomColor = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
 		/********************
 		TAG INSTANCE METHODS
 		********************/
