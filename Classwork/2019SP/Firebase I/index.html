@@ -1,45 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>TODO LIST</title>
-		<link rel="stylesheet" href="./styles/styles.css">
-  </head>
-  <body>
 
-    <!-- MOUNT POINT -->
-    <app></app>
+<head>
+  <meta charset="utf-8">
+  <title>TODO LIST</title>
+  <link rel="stylesheet" href="./styles/styles.css">
+</head>
 
-    <!-- TAGS -->
-    <script src="./tags/app.tag" type="riot/tag"></script>
+<body>
 
-    <!-- LOAD Riot, Firebase -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/riot/3.13.2/riot+compiler.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+  <!-- MOUNT POINT -->
+  <app></app>
 
-    <script>
-      // INITIALIZE FIREBASE
-	    var config = {
-	      apiKey: "YOUR API KEY",
-	      authDomain: "YOUR PROJECT ID.firebaseapp.com",
-	      databaseURL: "https://YOUR PROJECT ID.firebaseio.com",
-	      projectId: "YOUR PROJECT ID",
-	      storageBucket: "YOUR PROJECT ID.appspot.com",
-	      messagingSenderId: "YOUR MESSAGINGSENDER ID"
-	    };
-      firebase.initializeApp(config);
+  <!-- TAGS -->
+  <script src="./tags/app.tag" type="riot/tag"></script>
+
+  <!-- LOAD Riot, Firebase -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/riot/3.13.2/riot+compiler.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+
+  <script>
+    // INITIALIZE FIREBASE
+    var config = {
+      apiKey: "AIzaSyDAYJ_g-e3RodZA5o9fAeFI6FVCQY44wlM",
+      authDomain: "mstu5013-2d4b7.firebaseapp.com",
+      databaseURL: "https://mstu5013-2d4b7.firebaseio.com",
+      projectId: "mstu5013-2d4b7",
+      storageBucket: "mstu5013-2d4b7.appspot.com",
+      messagingSenderId: "151946125208"
+    };
+    firebase.initializeApp(config);
+
+    let database = firebase.firestore();
+
+    let todolist = [];
+
+    database.collection("todolist").get().then(snapshot => {
+
+      snapshot.forEach(doc => {
+        let docData = doc.data();
+        todolist.push(docData);
+      });
+
+      console.log(todolist);
 
       // INITIALIZE RIOT
-			riot.mount('app', {
-	      title: 'I want to behave!',
-	      items: [
-	        { title: 'Avoid excessive caffeine', done: true },
-	        { title: 'Hidden item',  hidden: true },
-	        { title: 'Be less provocative'  },
-	        { title: 'Be nice to people' }
-	      ]
-	    })
-    </script>
+      riot.mount('app', {
+        title: 'I want to behave!',
+        items: todolist
+      });
+    })
 
-  </body>
+    console.log('End of index.html');
+  </script>
+
+</body>
+
 </html>

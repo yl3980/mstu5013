@@ -30,6 +30,11 @@
 
 		add(event) {
 			if (this.text) {
+
+				database.collection("todolist").add({
+					title: this.text,
+					done: false
+				});
 				this.items.push({title: this.text});
 				this.text = this.refs.input.value = '';
 			}
