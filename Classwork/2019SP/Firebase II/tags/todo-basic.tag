@@ -134,6 +134,7 @@
 
 			// https://firebase.google.com/docs/firestore/query-data/query-cursorss
 			database.collection('todos')
+				.orderBy('timestamp','asc').limit(3).get().then(snapshot => {
 					console.log('Collection successfully fetched.');
 
 					this.items = [];
