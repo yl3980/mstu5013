@@ -90,6 +90,19 @@
 		onlyDone(item) {
 			return item.done;
 		}
+		nextpage(){
+			condole.log(this.lastTimestamp);
+
+		  database.collection("todos").orderBy("timestamp","asc")
+			.startAfter(this.lastTimestamp).limit(5).get().then(snapshot =>{
+				this.item = [];
+				snapshot.forEach(doc =>{
+					this.item.push(doc.data())
+				});
+				this.lastTimestamp = this.item[this.items.length - 1].timestamp;
+				this.update();
+			})
+		}
 
 		// LIFECYCLE EVENTS ---------------------------------------
 
@@ -100,7 +113,8 @@
 			// .where('prop', '< <= == > >= array_contains', 'value')
 			// .limit(number)
 			// How would you get all words like camel, camera, camp?
-			database.collection('todos').get().then(snapshot => {
+			database.collection('todos').orderBy("title","asc")
+			.get().then(snapshot => {
 				console.log('Collection successfully fetched.');
 
 				this.items = [];
